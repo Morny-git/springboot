@@ -178,4 +178,78 @@ public class DateHelperUtil {
 		Long seconds = end.getTime() - start.getTime();
 		return seconds.longValue();
 	}
+	/**
+	 * 获取指定时间的前几天
+	 */
+	public static String getBeforeDays(String date,int day) throws Exception {
+		Calendar now =Calendar.getInstance();
+		now.setTime(formatToDate(date,""));
+		now.set(Calendar.DATE,now.get(Calendar.DATE)-day);
+		return formatToString(now.getTime(),"");
+	}
+
+	/**
+	 * get Calendar of given year
+	 * @param year
+	 * @return
+	 */
+	public static Calendar getCalendarFormYear(int year){
+		Calendar cal = Calendar.getInstance();
+		cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+		cal.set(Calendar.YEAR, year);
+		return cal;
+	}
+
+	/**
+	 * 获取指定时间的前几周的开始时间
+	 */
+	public static String getBeforeweeks(String date,int week) throws Exception {
+		Calendar c = Calendar.getInstance();
+		c.setTime(formatToDate(date,""));
+		c.add(Calendar.WEEK_OF_YEAR,-week);
+		Date startTime = c.getTime();
+		return formatToString(startTime,"");
+	}
+	/**
+	 * 获取指定时间的前几月时间
+	 */
+	public static String getBeforeMonth(String date,int month) throws Exception {
+		Calendar c = Calendar.getInstance();
+		c.setTime(formatToDate(date,""));
+		c.add(Calendar.MONTH,-month);
+		c.set(Calendar.DAY_OF_MONTH,1);
+		Date startTime = c.getTime();
+		return formatToString(startTime,"");
+	}
+	/**
+	 * get the end day of given week no of a year.
+	 * @return
+	 */
+	public static String getEndDayOfWeek(String date) throws Exception {
+		Calendar c = Calendar.getInstance();
+		c.setTime(formatToDate("2017/09/01",""));
+		int d = 0;
+		if (c.get(Calendar.DAY_OF_WEEK) == 1) {
+			d = 0;
+		} else {
+			d = 8 - c.get(Calendar.DAY_OF_WEEK);
+		}
+		c.add(Calendar.DAY_OF_WEEK, d);
+		Date startTime = c.getTime();
+		return formatToString(startTime,"");
+	}
+	/**
+	 * 获取当前月的最后一天
+	 */
+	public static String getEndDayOfMonth(String date) throws Exception {
+		Calendar c = Calendar.getInstance();
+		c.set(Calendar.DATE,c.getActualMaximum(Calendar.DAY_OF_MONTH));
+		Date startTime = c.getTime();
+		return formatToString(startTime,"");
+	}
+
+
+
+
+
 }

@@ -23,4 +23,6 @@ public class StringUtils {
 		UUID uuid = UUID.randomUUID();
 		return uuid.toString();
 	}
+
+
 }

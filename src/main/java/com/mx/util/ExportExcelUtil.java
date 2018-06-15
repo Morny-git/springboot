@@ -26,7 +26,7 @@ public class ExportExcelUtil<T> {
     //执行导出
     public static boolean exportData(ExportExcelUtil ex, HttpServletRequest request, HttpServletResponse response, String sheetTitle, String[] headers, List dataList, String fileName) throws IOException {
         if (ex != null) {
-                OutputStream out = FileUtils.formatFileName(request,response,fileName);
+                OutputStream out = com.mx.util.FileUtils.formatFileName(request,response,fileName);
                 sheetTitle = sheetTitle.isEmpty() ? "sheet" : sheetTitle;
                 ex.exportExcel(sheetTitle, headers, dataList, out, "yyyy-MM-dd");
                 out.close();

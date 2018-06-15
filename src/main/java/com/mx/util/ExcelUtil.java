@@ -235,7 +235,7 @@ public class ExcelUtil {
     	Workbook workbook = new HSSFWorkbook();
     	OutputStream out = null;
         try {
-            String fileName = DateHelperUtil.formatToString(new Date(), "yyyyMMddHHmmss") + ".xls";
+            String fileName = com.mx.util.DateHelperUtil.formatToString(new Date(), "yyyyMMddHHmmss") + ".xls";
             out = FileUtils.formatFileName(request,response,fileName);
             Sheet sheet = workbook.createSheet();
             Row row0 = sheet.createRow(0);

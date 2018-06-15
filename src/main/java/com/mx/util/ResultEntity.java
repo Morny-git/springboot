@@ -3,8 +3,6 @@ package com.mx.util;
 import com.github.pagehelper.PageInfo;
 import lombok.Data;
 
-import java.util.List;
-
 /**
  * Created by hadoop on 2016/3/17.
  */
@@ -45,11 +43,6 @@ public class ResultEntity {
         this.msg = msg;
     }
 
-    public ResultEntity(Object data) {
-        this.success = true;
-        this.data = data;
-    }
-
     public ResultEntity(int errorCode, String msg) {
         this.success = false;
         this.errorCode = errorCode;
@@ -71,4 +64,44 @@ public class ResultEntity {
         this.data = data;
     }
 
+
+    public Boolean getSuccess() {
+        return success;
+    }
+
+    public void setSuccess(Boolean success) {
+        this.success = success;
+    }
+
+    public Object getData() {
+        return data;
+    }
+
+    public void setData(Object data) {
+        this.data = data;
+    }
+
+    public PageInfo<?> getPageInfo() {
+        return pageInfo;
+    }
+
+    public void setPageInfo(PageInfo<?> pageInfo) {
+        this.pageInfo = pageInfo;
+    }
+
+    public int getErrorCode() {
+        return errorCode;
+    }
+
+    public void setErrorCode(int errorCode) {
+        this.errorCode = errorCode;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
 }

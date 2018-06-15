@@ -73,7 +73,7 @@ public class FtpFileUtils {
 
     //上传文件
     public void upload(MultipartFile file) throws Exception {
-        String path = basePath + DateHelperUtil.formatToString(null,"yyyyMMdd");
+        String path = basePath + com.mx.util.DateHelperUtil.formatToString(null,"yyyyMMdd");
         InputStream inputStream = null;
         FTPClient ftpClient = null;
         try {

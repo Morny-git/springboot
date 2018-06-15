@@ -22,8 +22,8 @@ public class SwaggerConfig {
     public Docket createRestApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
-//                .host("ps.bonc.com.cn")
-//                .host("112.35.1.18:8081")
+                //.host("ps.mx.com.cn")
+                .host("112.35.1.18:8081")
                 .useDefaultResponseMessages(false)
                 .select()
                 .apis(RequestHandlerSelectors.any())

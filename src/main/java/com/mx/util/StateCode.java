@@ -11,8 +11,6 @@ public enum StateCode{
     USERNAME_ERROR(1010, "用户名错误"),
     PASSWORK_ERROR(1011,"密码错误"),
 
-    INTERNAL_SERVER_ERROR(500, "服务器错误"),
-
     PARAM_ERROR(601, "参数不合法"),
     TOKEN_ERROR(605, "无效的Token"),
     NO_AUTH_ERROR(606, "无操作权限"),

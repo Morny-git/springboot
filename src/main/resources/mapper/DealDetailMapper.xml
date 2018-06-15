@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mx.mapper.DealDetailMapper" >
+  <resultMap id="BaseResultMap" type="DealDetail" />
+
+  <sql id="Base_Column_List" >
+    DD.DETAIL_ID, DD.CREATE_TIME, DD.SELLER_ID, DD.SELLER_NAME, DD.SELLER_AREA_ID, DD.P_AREA_ID,DD.SELLER_AREA_NAME,DD.BUYER_ID, DD.BUYER_NAME,
+    DD.BUYER_AREA_NAME, DD.GOODS_ID, DD.GOODS_NAME, DD.SALES_VOLUME, DD.SALES_AMOUNT, DD.PLATFORM, DD.CLIENT,
+    DD.ORDER_TIME
+  </sql>
+
+
+  <select id="realtime" resultType="HashMap" parameterType="String" >
+    select A.LON lon,A.LAT lat,SUM(DD.SALES_AMOUNT) salesAmount, '元' AS salesAmountUnit, 0 AS isHaveNew
+    from DM_DEAL_DETAIL DD
+    LEFT JOIN DM_CODE_AREA A on DD.SELLER_AREA_ID = A.AREA_ID
+    WHERE DD.order_time BETWEEN DATE_FORMAT(date_sub( NOW(),INTERVAL 30 DAY),'%Y/%m/%d')
+    AND DATE_FORMAT(NOW(),'%Y/%m/%d')
+    <if test="createTime != null and createTime != ''">
+      and DD.CREATE_TIME > #{createTime}
+    </if>
+    GROUP BY A.LON ,A.LAT
+  </select>
+
+  <select id="sellerAreaRank" resultType="HashMap" >
+    SELECT A1.AREA_NAME areaName,SUM(DD.SALES_AMOUNT) salesAmount, '元' AS salesAmountUnit
+    FROM DM_DEAL_DETAIL DD
+    LEFT JOIN DM_CODE_AREA A1 ON DD.SELLER_AREA_ID =  A1.AREA_ID
+--     LEFT JOIN DM_CODE_AREA A1 ON A.P_ID = A1.AREA_ID
+    WHERE DD.order_time BETWEEN DATE_FORMAT(date_sub( NOW(),INTERVAL 30 DAY),'%Y/%m/%d')
+    AND DATE_FORMAT(NOW(),'%Y/%m/%d')
+    GROUP BY A1.AREA_NAME
+    ORDER BY salesAmount DESC
+    LIMIT 5
+  </select>
+
+  <select id="goodsRank" resultType="HashMap" >
+    select DD.GOODS_NAME goodsName,SUM(DD.SALES_AMOUNT) salesAmount, '元' AS salesAmountUnit
+    from dm_deal_detail DD
+    WHERE DD.order_time BETWEEN DATE_FORMAT(date_sub( NOW(),INTERVAL 30 DAY),'%Y/%m/%d')
+    AND DATE_FORMAT(NOW(),'%Y/%m/%d')
+    GROUP BY DD.GOODS_NAME
+    ORDER BY salesAmount DESC
+    LIMIT 5
+  </select>
+
+  <select id="sellerRank" resultType="HashMap" >
+    select DD.SELLER_NAME sellerName,SUM(DD.SALES_AMOUNT) salesAmount, '元' AS salesAmountUnit
+    from dm_deal_detail DD
+    WHERE DD.order_time BETWEEN DATE_FORMAT(date_sub( NOW(),INTERVAL 30 DAY),'%Y/%m/%d')
+    AND DATE_FORMAT(NOW(),'%Y/%m/%d')
+    GROUP BY DD.SELLER_NAME
+    ORDER BY salesAmount DESC
+    LIMIT 5
+  </select>
+
+  <select id="platformRank" resultType="HashMap" >
+    select DD.PLATFORM platform,SUM(DD.SALES_AMOUNT) salesAmount, '元' AS salesAmountUnit
+    from dm_deal_detail DD
+    WHERE DD.order_time BETWEEN DATE_FORMAT(date_sub( NOW(),INTERVAL 30 DAY),'%Y/%m/%d')
+    AND DATE_FORMAT(NOW(),'%Y/%m/%d')
+    GROUP BY DD.PLATFORM
+    ORDER BY salesAmount DESC
+  </select>
+
+  <select id="totalSaleAmount" resultType="HashMap" >
+    select SUM(DD.SALES_AMOUNT) salesAmount, '元' AS salesAmountUnit
+    from dm_deal_detail DD
+    WHERE DD.order_time BETWEEN DATE_FORMAT(date_sub( NOW(),INTERVAL 30 DAY),'%Y/%m/%d')
+    AND DATE_FORMAT(NOW(),'%Y/%m/%d')
+  </select>
+
+  <select id="platformDealRank" resultType="HashMap">
+    select DD.PLATFORM platform,COUNT(1) dealNum, ORDER_TIME AS time
+    from dm_deal_detail DD
+    WHERE DD.CREATE_TIME BETWEEN
+    UNIX_TIMESTAMP(date_sub(curdate(),interval +0 DAY))*1000
+    AND
+    UNIX_TIMESTAMP(date_sub(curdate(),interval -1 DAY))*1000
+    GROUP BY DD.PLATFORM
+    ORDER BY dealNum DESC
+     LIMIT 5
+  </select>
+
+</mapper>

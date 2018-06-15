@@ -66,7 +66,7 @@ public class FileUtils {
      * 将生成的文件名置为中文
      *
      */
-    public static OutputStream formatFileName(HttpServletRequest request, HttpServletResponse response,String fileName) throws IOException {
+    public static OutputStream formatFileName(HttpServletRequest request, HttpServletResponse response, String fileName) throws IOException {
         String agent = request.getHeader("User-Agent");
         response.reset();
 

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mx.mapper.ArticleMapper">
+
+
+	<select id="web" resultType="HashMap">
+	  SELECT DATE_FORMAT(article.CREATE_TIME,'%Y%m%d') createTime,WEB.W_NAME webName,COUNT(1) nums
+		FROM B_WEB_CONTENT WEB
+		RIGHT JOIN ARTICLE_TABLE ARTICLE ON ARTICLE.W_CODE = WEB.W_CODE
+		GROUP BY WEB.W_NAME,DATE_FORMAT(ARTICLE.CREATE_TIME,'%Y%m%d')
+		ORDER BY createTime DESC,nums DESC
+	</select>
+
+
+
+
+
+</mapper>

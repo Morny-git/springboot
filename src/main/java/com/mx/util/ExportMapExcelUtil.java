@@ -18,7 +18,7 @@ import java.util.regex.Pattern;
 public class ExportMapExcelUtil {
     //执行导出
     public static boolean exportData(HttpServletRequest request, HttpServletResponse response, String sheetTitle, String[] headers, List<LinkedHashMap<String,Object>> dataList, String fileName) throws Exception {
-            OutputStream out = FileUtils.formatFileName(request,response,fileName);
+            OutputStream out = com.mx.util.FileUtils.formatFileName(request,response,fileName);
             sheetTitle = sheetTitle.isEmpty() ? "sheet" : sheetTitle;
             exportExcel(sheetTitle, headers, dataList, out, "yyyy-MM-dd");
             out.close();
@@ -33,7 +33,7 @@ public class ExportMapExcelUtil {
         HSSFSheet sheet = workbook.createSheet(title);
         // 产生表格标题行
         HSSFRow row = sheet.createRow(0);
-        ExcelUtil.createHeader(row, headers);
+        com.mx.util.ExcelUtil.createHeader(row, headers);
         // 遍历集合数据，产生数据行
         if (dataList != null) {
             int index = 0;
