@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mx.mapper.code.CodeMapper" >
+    <resultMap id="buildPeriod" type="CodeEntity">
+        <result column="BUILD_PERIOD_ID" property="id"/>
+        <result column="BUILD_PERIOD_NAME" property="name"/>
+        <result column="BUILD_PERIOD_VAL" property="val"/>
+    </resultMap>
+
+    <select id="builPeriod" resultMap="buildPeriod">
+        SELECT BUILD_PERIOD_ID, BUILD_PERIOD_NAME, BUILD_PERIOD_VAL
+        FROM KC_CODE_BUILD_PERIOD
+        ORDER BY ORD
+    </select>
+
+
+</mapper>
